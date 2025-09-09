@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>إستمارة حجز عقار – Ebkar Property Form</title>
+  <style>
+    :root {
+      --primary: #7BBFD0;
+      --secondary: #A4D8A5;
+      --accent: #FFE496;
+      --background: #FBFBFC;
+      --surface: #FFFFFF;
+      --text: #333333;
+      --muted: #6B6B6B;
+      --radius: 12px;
+      --shadow: 0 4px 12px rgba(0,0,0,0.08);
+      --header-bg: #E6F4EC;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      direction: rtl;
+    }
+    header {
+      background: var(--header-bg);
+      padding: 40px 20px;
+      text-align: center;
+      border-radius: 0 0 var(--radius) var(--radius);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .logo-wrapper {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      margin-bottom: 16px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .logo-wrapper img {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: #1D1D1D;
+    }
+    header p {
+      margin: 8px 0 0;
+      color: #333333;
+      font-size: 0.9rem;
+    }
+    .form-wrapper {
+      max-width: 1100px;
+      margin: 20px auto;
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 24px;
+      margin-bottom: 12px;
+      font-weight: bold;
+      color: var(--primary);
+    }
+    .section-title span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    label {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+      display: block;
+    }
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      border: 1px solid #DDD;
+      background: var(--background);
+      color: var(--text);
+    }
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(0.3);
+    }
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--primary);
+      background: rgba(123, 191, 208, 0.1);
+      color: var(--text);
+      font-size: 0.85rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .chip input {
+      accent-color: var(--primary);
+    }
+    .terms {
+      margin-top: 24px;
+      padding: 14px;
+      border: 1px dashed var(--primary);
+      border-radius: var(--radius);
+      background: rgba(123, 191, 208, 0.05);
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+    .submit-btn {
+      margin-top: 24px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: var(--radius);
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: #FFFFFF;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-wrapper">
+      <!-- Place your base64 logo or external image URL here -->
+      <img src="data:image/jpeg;base64,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" alt="Ebkar logo" class="logo" />
+    </div>
+    <h1>إستمارة حجز عقار – Ebkar Property Form</h1>
+    <p>نرحب بكم؛ يرجى تعبئة البيانات أدناه بهدوء – We welcome you; please fill out the form below calmly.</p>
+  </header>
+
+  <div class="form-wrapper">
+    <!-- Netlify-ready form -->
+    <form name="ebkar-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+      <!-- Required hidden inputs -->
+      <input type="hidden" name="form-name" value="ebkar-form" />
+      <p style="display:none;">
+        <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+      </p>
+
+      <!-- Personal Information -->
+      <div class="section-title"><span></span>الزيارة و المعلومات الشخصية</div>
+      <div class="grid">
+        <div>
+          <label>موعد الزيارة (Date of Visit) <span style="color: var(--accent);">*</span></label>
+          <input type="date" name="date_of_visit" required>
+        </div>
+        <div>
+          <label>الاسم الكامل (Full Name) <span style="color: var(--accent);">*</span></label>
+          <input type="text" name="full_name" placeholder="الاسم الكامل" required>
+        </div>
+        <div>
+          <label>الجنسية (Nationality) <span style="color: var(--accent);">*</span></label>
+          <select name="nationality" required>
+            <option value="" disabled selected>اختر الجنسية / Choose Nationality</option>
+            <option>سعودي (Saudi)</option>
+            <option>مصري (Egyptian)</option>
+            <option>سوري (Syrian)</option>
+            <option>باكستاني (Pakistani)</option>
+            <option>هندي (Indian)</option>
+            <option>فلبيني (Filipino)</option>
+            <option>يمني (Yemeni)</option>
+            <option>سوداني (Sudanese)</option>
+            <option>أردني (Jordanian)</option>
+            <option>لبناني (Lebanese)</option>
+            <option>أخرى (Other)</option>
+          </select>
+        </div>
+        <div>
+          <label>رقم الجوال (Mobile Number) <span style="color: var(--accent);">*</span></label>
+          <input type="tel" name="mobile" placeholder="05xxxxxxxx" required>
+        </div>
+        <div>
+          <label>الحالة الاجتماعية (Marital Status) <span style="color: var(--accent);">*</span></label>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="marital_status" value="single" required> أعزب (Single)</label>
+            <label class="chip"><input type="radio" name="marital_status" value="family"> عائلة (Family)</label>
+            <label class="chip"><input type="radio" name="marital_status" value="other"> أخرى (Other)</label>
+          </div>
+        </div>
+        <div>
+          <label>عدد أفراد الأسرة (Family Members) <span style="color: var(--accent);">*</span></label>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="family_members" value="1" required> 1</label>
+            <label class="chip"><input type="radio" name="family_members" value="2"> 2</label>
+            <label class="chip"><input type="radio" name="family_members" value="3"> 3</label>
+            <label class="chip"><input type="radio" name="family_members" value="4"> 4</label>
+            <label class="chip"><input type="radio" name="family_members" value="5"> 5</label>
+            <label class="chip"><input type="radio" name="family_members" value="6"> 6</label>
+            <label class="chip"><input type="radio" name="family_members" value="7+"> 7+</label>
+          </div>
+        </div>
+        <div>
+          <label>جهة العمل (Employer) <span style="color: var(--accent);">*</span></label>
+          <input type="text" name="employer" placeholder="جهة العمل" required>
+        </div>
+        <div>
+          <label>عنوان العمل (Work Address) <span style="color: var(--accent);">*</span></label>
+          <input type="text" name="work_address" placeholder="عنوان العمل" required>
+        </div>
+        <div>
+          <label>المسمى الوظيفي (Job Title)</label>
+          <input type="text" name="job_title" placeholder="المسمى الوظيفي">
+        </div>
+        <div>
+          <label>البريد الإلكتروني (Email)</label>
+          <input type="email" name="email" placeholder="example@domain.com">
+        </div>
+      </div>
+
+      <!-- Property Details -->
+      <div class="section-title"><span></span>تفاصيل العقار</div>
+      <div class="grid">
+        <div>
+          <label>رمز العقار المرجعي (Property Reference Code)</label>
+          <input type="text" name="property_reference" placeholder="كود المرجع">
+        </div>
+        <div>
+          <label>المصدر / الوسيط (Source / Agent)</label>
+          <input type="text" name="source_agent" placeholder="المصدر أو الوسيط">
+        </div>
+        <div>
+          <label>فئة العقار (Category) <span style="color: var(--accent);">*</span></label>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="category" value="sale" required> بيع (Sale)</label>
+            <label class="chip"><input type="radio" name="category" value="rent"> إيجار (Rent)</label>
+            <label class="chip"><input type="radio" name="category" value="other"> أخرى (Other)</label>
+          </div>
+        </div>
+        <div>
+          <label>الأحياء المفضلة (Preferred Areas) <span style="color: var(--accent);">*</span></label>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="preferred_areas" value="Al Hamra"> الحمراء (Al Hamra)</label>
+            <label class="chip"><input type="checkbox" name="preferred_areas" value="Al Rawdah"> الروضة (Al Rawdah)</label>
+            <label class="chip"><input type="checkbox" name="preferred_areas" value="Al Shati"> الشاطئ (Al Shati)</label>
+            <label class="chip"><input type="checkbox" name="preferred_areas" value="Al Hazm"> الحزم (Al Hazm)</label>
+            <label class="chip"><input type="checkbox" name="preferred_areas" value="Other"> أخرى (Other)</label>
+          </div>
+        </div>
+        <div>
+          <label>نوع العقار المفضل (Preferred Property Type) <span style="color: var(--accent);">*</span></label>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="preferred_type" value="Apartment"> شقة (Apartment)</label>
+            <label class="chip"><input type="checkbox" name="preferred_type" value="Villa"> فيلا (Villa)</label>
+            <label class="chip"><input type="checkbox" name="preferred_type" value="Compound"> مجمع سكني (Compound)</label>
+            <label class="chip"><input type="checkbox" name="preferred_type" value="Beach House"> بيت شاطئ (Beach House)</label>
+            <label class="chip"><input type="checkbox" name="preferred_type" value="Other"> أخرى (Other)</label>
+          </div>
+        </div>
+        <div>
+          <label>التأثيث (Furnishing) <span style="color: var(--accent);">*</span></label>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="furnishing" value="fully furnished" required> مفروشة بالكامل (Fully Furnished)</label>
+            <label class="chip"><input type="radio" name="furnishing" value="semi furnished"> مفروشة جزئياً (Semi Furnished)</label>
+            <label class="chip"><input type="radio" name="furnishing" value="unfurnished"> غير مفروشة (Unfurnished)</label>
+            <label class="chip"><input type="radio" name="furnishing" value="other"> أخرى (Other)</label>
+          </div>
+        </div>
+        <div>
+          <label>غرف النوم (Bedrooms) <span style="color: var(--accent);">*</span></label>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="bedrooms" value="1" required> 1</label>
+            <label class="chip"><input type="radio" name="bedrooms" value="2"> 2</label>
+            <label class="chip"><input type="radio" name="bedrooms" value="3"> 3</label>
+            <label class="chip"><input type="radio" name="bedrooms" value="4"> 4</label>
+            <label class="chip"><input type="radio" name="bedrooms" value="5+"> 5+</label>
+          </div>
+        </div>
+        <div>
+          <label>دورات المياه (Bathrooms) <span style="color: var(--accent);">*</span></label>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="bathrooms" value="1" required> 1</label>
+            <label class="chip"><input type="radio" name="bathrooms" value="2"> 2</label>
+            <label class="chip"><input type="radio" name="bathrooms" value="3"> 3</label>
+            <label class="chip"><input type="radio" name="bathrooms" value="4+"> 4+</label>
+          </div>
+        </div>
+        <div>
+          <label>مرافق إضافية (Additional Facilities)</label>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="facilities" value="Reserved Parking"> موقف خاص (Reserved Parking)</label>
+            <label class="chip"><input type="checkbox" name="facilities" value="Private Pool"> مسبح خاص (Private Swimming Pool)</label>
+            <label class="chip"><input type="checkbox" name="facilities" value="Gym"> نادي رياضي (Gym)</label>
+            <label class="chip"><input type="checkbox" name="facilities" value="Elevator"> مصعد (Elevator)</label>
+            <label class="chip"><input type="checkbox" name="facilities" value="Playground"> منطقة لعب أطفال (Playground)</label>
+            <label class="chip"><input type="checkbox" name="facilities" value="Other"> أخرى (Other)</label>
+          </div>
+        </div>
+        <div>
+          <label>مدة العقد (Contract Period) <span style="color: var(--accent);">*</span></label>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="contract_period" value="Monthly" required> شهري (Monthly)</label>
+            <label class="chip"><input type="radio" name="contract_period" value="Three Months"> 3 أشهر (Three Months)</label>
+            <label class="chip"><input type="radio" name="contract_period" value="Six Months"> 6 أشهر (Six Months)</label>
+            <label class="chip"><input type="radio" name="contract_period" value="Yearly"> سنوي (Yearly)</label>
+            <label class="chip"><input type="radio" name="contract_period" value="Other"> أخرى (Other)</label>
+          </div>
+        </div>
+        <div>
+          <label>تاريخ بداية العقد (Contract Start Date) <span style="color: var(--accent);">*</span></label>
+          <input type="date" name="contract_start" required>
+        </div>
+        <div>
+          <label>تاريخ نهاية العقد (Contract End Date) <span style="color: var(--accent);">*</span></label>
+          <input type="date" name="contract_end" required>
+        </div>
+        <div>
+          <label>النطاق السعري (Budget Range) <span style="color: var(--accent);">*</span></label>
+          <select name="budget_range" required>
+            <option value="" disabled selected>اختر النطاق / Select Range</option>
+            <option>أقل من 20,000 (Less than 20,000)</option>
+            <option>20,000–30,000</option>
+            <option>30,000–40,000</option>
+            <option>40,000–50,000</option>
+            <option>50,000–60,000</option>
+            <option>60,000–70,000</option>
+            <option>70,000–80,000</option>
+            <option>80,000–90,000</option>
+            <option>90,000–100,000</option>
+            <option>100,000–120,000</option>
+            <option>120,000–140,000</option>
+            <option>140,000–160,000</option>
+            <option>160,000–180,000</option>
+            <option>180,000–200,000</option>
+            <option>200,000–250,000</option>
+            <option>أكثر من 250,000 (Above 250,000)</option>
+            <option>أخرى (Other)</option>
+          </select>
+        </div>
+        <div>
+          <label>طريقة الدفع (Mode of Payment) <span style="color: var(--accent);">*</span></label>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="payment_mode" value="Cash" required> نقدًا (Cash)</label>
+            <label class="chip"><input type="radio" name="payment_mode" value="POS"> نقاط البيع (POS)</label>
+            <label class="chip"><input type="radio" name="payment_mode" value="Other"> أخرى (Other)</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Terms -->
+      <div class="terms">
+        <p><strong>الشروط والأحكام العامة</strong></p>
+        <p>
+          إي بُكار هو مكتب عقاري مرخص في المملكة العربية السعودية، مصرح من الهيئة العامة للعقار (REGA) برقم الترخيص فال 1200001882. نقدم مجموعة من الخدمات لعملائنا. يتم احتساب رسوم خدماتنا بنسبة 5٪ من قيمة الإيجار للسنة الأولى. تشمل هذه الرسوم التكاليف الإدارية، وخدمات البحث عن العقار وفقًا لمتطلباتكم، والتفاوض على الأسعار نيابة عنكم، وإعداد عقد الإيجار عبر نظام إيجار.
+        </p>
+        <p>باستخدام خدماتنا، فإنك توافق على الشروط والأحكام الخاصة بنا.</p>
+      </div>
+
+      <button type="submit" class="submit-btn">إرسال / Submit</button>
+    </form>
+  </div>
+
+</body>
+</html>
